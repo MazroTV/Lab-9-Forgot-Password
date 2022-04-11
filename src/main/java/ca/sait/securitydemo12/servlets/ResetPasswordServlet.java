@@ -61,10 +61,29 @@ String path = getServletContext().getRealPath("/WEB-INF");
 AccountService as = new AccountService();
 String uuid = request.getParameter("uuid");
 
-if (uuid 1= null) {
+if (uuid != null) {
+String password = request.getParameter("password");
+
+if (email != null && password != null && as.updatePassword(email, password, uuid)) {
+message = "Password Successfully Updated! You can now Login with the new password!";
+
+
+}else{
+message = "Password Unsuccessfully Updated! PLease try again!";
+request.setAttribute("uuid", uuid);
 
 }
 
-    }
+request.setAttribute("message", message);
+getServletContext().getRequestDispatcher("/WEB-INF/newPassword.jsp").forward(request, response);
 
+
+}else{
+as.resetPassword(email, path, url);
+message = "We will send you a link to rest you password from the given email. Please check your email for reset link.";
+request.setAttribute("message", message);
+
+getServletContext().getRequestDispatcher("/WEB-INF/reset.jsp").forward(request, response);
+}
+}
 }

@@ -23,7 +23,7 @@ public class AccountService {
         return null;
     }
 
-public void resetPassword (String email, String path, String url) throws Exception {
+public void resetPassword (String email, String path, String url) {
 String uuid = UUID.randomUUID().toString();
 UserDB userdb = new UserDB();
 String link = url + "?uuid=" + uuid;
@@ -60,6 +60,29 @@ userdb.update(user);
 Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, "Your password was unsuccessfully reset! " + email, ex);
 }
 
+
+}
+
+public boolean updatePassword (String email, String password, String uuid) {
+UserDB userdb = new UserDB();
+try {
+
+User user = userdb.get(email);
+
+if (user != null && user.getResetPasswordUuid().equals(uuid)){
+user.setPassword(password);
+user.setResetPasswordUuid(null);
+userdb.update(user);
+Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "Successful password change");
+return true;
+
+}else {
+throw new Exception("User not found");
+}
+}catch (Exception e){
+   Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, "Unuccessful password change", e);
+ return false; 
+}
 
 }
 
