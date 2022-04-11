@@ -4,6 +4,7 @@
  */
 package ca.sait.securitydemo12.servlets;
 
+import ca.sait.securitydemo12.services.AccountService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,7 +34,13 @@ public class ResetPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String uuid = request.getParameter("uuid");
+    if (uuid != null){
+    request.setAttribute("uuid",uuid);
+    getServletContext().getRequestDispatcher("/WEB-INF/newpassword.jsp").forward(request, response);
+    }else {
+    getServletContext().getRequestDispatcher("/WEB-INF/reset.jsp").forward(request, response);
+}
     }
 
     /**
@@ -47,7 +54,17 @@ public class ResetPasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String email = request.getParameter("email");
+String url = request.getRequestURL().toString();
+String message;
+String path = getServletContext().getRealPath("/WEB-INF");
+AccountService as = new AccountService();
+String uuid = request.getParameter("uuid");
+
+if (uuid 1= null) {
+
+}
+
     }
 
 }

@@ -1,7 +1,9 @@
 package ca.sait.securitydemo12.dataaccess;
 
+
 import javax.persistence.EntityManager;
 import ca.sait.securitydemo12.models.User;
+import javax.persistence.EntityTransaction;
 
 
 public class UserDB {
@@ -15,4 +17,19 @@ public class UserDB {
             em.close();
         }
     }
+    public void update(User user) throws Exception {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try {
+            trans.begin();
+            em.merge(user);
+            trans.commit();
+        } catch (Exception ex) {
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+    }
+
 }
