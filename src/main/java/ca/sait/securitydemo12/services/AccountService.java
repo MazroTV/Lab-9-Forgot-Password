@@ -63,7 +63,7 @@ Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, "Your passwor
 
 }
 
-public boolean updatePassword (String email, String password, String uuid) {
+public boolean changePassword (String email, String password, String uuid) {
 UserDB userdb = new UserDB();
 try {
 

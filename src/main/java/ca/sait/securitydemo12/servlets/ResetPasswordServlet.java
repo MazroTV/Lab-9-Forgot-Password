@@ -64,7 +64,7 @@ String uuid = request.getParameter("uuid");
 if (uuid != null) {
 String password = request.getParameter("password");
 
-if (email != null && password != null && as.updatePassword(email, password, uuid)) {
+if (email != null && password != null && as.changePassword(email, password, uuid)) {
 message = "Password Successfully Updated! You can now Login with the new password!";
 
 
